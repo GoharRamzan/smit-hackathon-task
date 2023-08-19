@@ -1,0 +1,241 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {text-align: center;}
+        #enterDetails { width: 50%;  }
+        #findDetails { width: 50%;}
+        input {width: 120px;} 
+     .postarea{
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        margin:auto;
+        margin-top: 100px;
+     }
+     #title{
+        width: 600px;
+        margin-bottom: 1px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: rgb(29, 12, 41);
+        color: white;
+     }
+     .header{
+         background-color: rgb(49, 21, 75);
+        height: 40px;
+      
+        
+    
+     }
+     .listall{
+        list-style: none;
+        display: flex;
+        font-size: 20px;
+        margin:20px;
+        color: white;
+     }
+     .list{
+       margin: 12px;
+     }
+     .btn{
+        margin-left: 880px;
+        margin-bottom: 10px;
+        
+     }
+     #insert{
+        background-color: rgb(49, 21, 75);
+        height: 25px;
+        width: 120px;
+        border-radius: 6px;
+        color: white;
+     }
+    #update{
+        background-color: rgb(49, 21, 75);
+        height: 25px;
+        width: 120px;
+        border-radius: 6px;
+        color: white;
+    }
+    #remove{
+        background-color: rgb(49, 21, 75);
+        height: 25px;
+        width: 120px;
+        border-radius: 6px;
+        color: white;
+    }
+
+
+    </style>
+</head>
+<body>
+    <nav class="header">
+
+     <ul class="listall">
+
+    <li class="list">Home</li>
+    <li class="list">About</li>
+    <li class="list">Info</li>
+    <li class="list">Support</li>
+    <li class="list btn"><button type="submit" id="Logout" class="signup-button" name="Logout" value="Logout">Logout</button></li>
+    
+
+     </ul>
+
+    </nav>
+    <div class="postarea">
+        <!-- <h1>Enter details</h1> -->
+
+
+     <div id="enterID"></div> 
+
+     <!-- <button type="submit" id="Logout" class="signup-button" name="Logout" value="Logout">Logout</button> -->
+
+        <!-- <h4 class="posthead">Post</h4>  -->
+       <br />
+            <input type="text" placeholder="Title" id="title">
+        <textarea name="" id="enterpost" cols="110" rows="13"></textarea>
+
+
+       
+        <!-- <h4>Age</h4> 
+        <input id="enterAge" type="number"> <br><br> -->
+
+        <button id="insert">Post</button>
+        <button id="update">UPDATE</button>
+        <button id="remove">REMOVE</button> <br><br>
+    </div>
+
+    <!-- -->
+     <!-- <div id="findDetails">
+        <h1>Find by ID</h1>
+        <h4>ID</h4>
+        <input id="findID" type="text"> <br><br>
+        <button id="find">FIND</button>
+        <h3 id="findPost" type="text"></h3>
+         <h3 id="findAge" type="number"></h3> <br><br> -->
+    <!-- </div> -->
+
+    <script type="module">
+
+
+  // Import the functions you need from the SDKs you need -->
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
+  import {getDatabase, ref, get, set, child, update, remove} from"https://www.gstatic.com/firebasejs/10.2.0/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDNtX0nsEJSLXRzIcoJivOJDuJ36RS31h8",
+    authDomain: "posting-ad9b3.firebaseapp.com",
+    projectId: "posting-ad9b3",
+    storageBucket: "posting-ad9b3.appspot.com",
+    messagingSenderId: "1027961521924",
+    appId: "1:1027961521924:web:b9d62773dc2ccdb33fb251"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+   
+
+         //Copy and Paste the URL from near the top of the CDN you pasted in from firebase
+        // (the one where you imported "initializeApp" from),
+        //but change "firebase-app" to "firebase-database"
+        
+
+        const db = getDatabase();
+
+        var enterID = document.querySelector("#enterID");
+        var enterPost = document.querySelector("#enterpost");
+        var enterAge = document.querySelector("#enterAge");
+        var findID = document.querySelector("#findID");
+        var findPost = document.querySelector("#findPost");
+        var findAge = document.querySelector("#findAge");
+      
+
+        var insertBtn = document.querySelector("#insert");
+        var updateBtn = document.querySelector("#update");
+        var removeBtn = document.querySelector("#remove");
+        var findBtn = document.querySelector("#find");
+
+        function InsertData() {
+            set(ref(db, "People/"+ enterpost.value),{
+                Post: enterpost.value,
+                // ID: enterID.value,
+                // Age: enterAge.value
+            })
+            const dbref = ref(db);
+
+get(child(dbref, "People/" + findPost.value))
+.then((snapshot)=>{
+    if(snapshot.exists()){
+        findPost.innerHTML = "Post: " + snapshot.val().Post;
+        // findAge.innerHTML = "Age: " + snapshot.val().Age;
+    } else {
+        alert("No data found");
+    }
+})
+.catch((error)=>{
+    alert(error)
+})
+        }
+
+        function FindData() {
+             const dbref = ref(db);
+
+            // get(child(dbref, "People/" + findID.value))
+            // .then((snapshot)=>{
+            //     if(snapshot.exists()){
+            //         findPost.innerHTML = "Post: " + snapshot.val().Post;
+            //         // findAge.innerHTML = "Age: " + snapshot.val().Age;
+            //     } else {
+            //         alert("No data found");
+            //     }
+            // })
+            // .catch((error)=>{
+            //     alert(error)
+            // })
+            
+            }
+
+        function UpdateData(){
+            update(ref(db, "People/"+ enterID.value),{
+                Post: enterpost.value,
+                Age: enterAge.value
+            })
+            .then(()=>{
+                alert("Data updated successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+        function RemoveData(){
+            remove(ref(db, "People/"+ enterID.value))
+            .then(()=>{
+                alert("Data deleted successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+        Logout.addEventListener('click', (e) => {
+
+  alert('user logged out')
+  location.replace('login.html')
+// Sign-out successful.
+})
+
+      </script>
+</body>
+</html> 

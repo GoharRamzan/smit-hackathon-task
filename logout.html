@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth Demo</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css" rel="stylesheet" />
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
+  <link href="./index.css" rel="stylesheet" />
+</head>
+
+<body class="d-flex justify-content-center p-5">
+  <div class="card">
+    <div class="card-header">
+
+      <h3>signUp</h3>
+    </div>
+    <!-- <input id="username" class="input-box" type="username" placeholder="Username" required /> -->
+    <br />
+
+    <input id="email" class="input-box" type="text" placeholder="E-mail" required />
+    <br />
+    <input id="username" class="input-box" type="username" placeholder="username" required />
+    <br />
+    <input id="password" class="input-box" type="password" placeholder="Password" required />
+
+    <br />
+    <div class="button">
+      <center><button type="submit" id="Logout" class="signup-button" name="Logout" value="Logout">Logout</button>
+      </center>
+    </div>
+    </form>
+  </div>
+
+
+
+
+
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword ,signOut} from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyB4YjaMPJZSMHyZ42t3Cpcx0JU3JTZskZg",
+      authDomain: "login-boiler-plate-2.firebaseapp.com",
+      projectId: "login-boiler-plate-2",
+      storageBucket: "login-boiler-plate-2.appspot.com",
+      messagingSenderId: "760423041138",
+      appId: "1:760423041138:web:88f4760392da0d2efcdaeb",
+      measurementId: "G-5P6WCYT66C"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+
+
+    Logout.addEventListener('click', (e) => {
+
+      signOut(auth).then(() => {
+
+        alert('user logged out')
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});
+    })
+    // signUp.addEventListener('click', (e) => {
+
+    //   let email = document.getElementById('email').value;
+    //   let password = document.getElementById('password').value;
+    //   let username = document.getElementById('username').value
+
+
+    //   createUserWithEmailAndPassword(auth, email, password)
+    //     .then((userCredential) => {
+    //       // Signed in 
+    //       const user = userCredential.user;
+    //       set(ref(database, 'users/' + user.uid), {
+    //         username: username,
+    //         email: email,
+    //       })
+    //       alert('user created')
+    //       // ...
+    //     })
+    //     .catch((error) => {
+    //       const errorCode = error.code;
+    //       const errorMessage = error.message;
+    //       alert(errorMessage)
+    //       // ..
+    //     });
+    // })
+  </script>
+</body>
+
+</html>
